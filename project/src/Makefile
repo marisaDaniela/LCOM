@@ -3,7 +3,7 @@ COMPILER_TYPE = gnu
 CC = gcc
 
 PROG = project
-SRCS = main.c timer.c kbd.c
+SRCS = main.c timer.c kbd.c utils.c vbe.c graphics.c
 
 CCFLAGS= -Wall -O3
 
