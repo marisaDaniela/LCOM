@@ -1,18 +1,14 @@
 #include <stdio.h>
 #include "vbe.h"
 #include "graphics.h"
+#include "snake.h"
 
 int main(int argc, char **argv)
 {
 	srand(time(NULL));
 	sef_startup();
 
-
-	printf("Hello, world!\n");
-
 	void * vgInit = vg_init(0x114);
-	//unsigned char key;
-
 	if( vgInit == NULL )
 	{
 		vg_exit();
@@ -20,7 +16,23 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	drawSquare(20,20,500,600);
+	unsigned char key;
+
+	Snake* snake = (Snake*)startSnake();
+
+	/*while(!snake->done) {
+		updateSnake(snake);
+
+		if (!snake->done) {
+			if (snake->draw)
+				drawSnake(snake);
+		}
+	}*/
+	drawSquare(20,20,500,1);
+
+
+	stopSnake(snake);
+
 
 	sleep(5);
 

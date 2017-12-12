@@ -131,7 +131,7 @@ int kbd_test_scan(unsigned short assembly) {
 				if (msg.NOTIFY_ARG & irq_set) {
 					if (assembly) {
 						printf("We need to see this\n");
-						//key = kbd_handler_assembly();
+						//TODO:key = kbd_handler_assembly();
 						//print(key);
 					} else {
 						key = kbd_handler_c();
