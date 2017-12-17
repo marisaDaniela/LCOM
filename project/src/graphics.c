@@ -23,7 +23,6 @@
 /* Private global variables */
 
 static char *video_mem;		/* Process (virtual) address to which VRAM is mapped */
-static char *buffer;
 
 static unsigned h_res;		/* Horizontal screen resolution in pixels */
 static unsigned v_res;		/* Vertical screen resolution in pixels */
@@ -82,22 +81,6 @@ void *vg_init(unsigned short mode) {
 
 	return video_mem;
 
-}
-//
-int fillDisplay(unsigned long color) {
-	char *ptr = buffer;
-	int i;
-
-	for(i = 0; i < h_res; i++) {
-		*ptr = (char) (color & 0xFF);
-		ptr++;
-		*ptr = (char)((color >> 8) & 0xFF);
-	}
-	int widthBytes = h_res * bits_per_pixel;
-
-	for(i = 1; i < v_res; i++)
-		memcpy(buffer + i * widthBytes,buffer, widthBytes);
-	return 0;
 }
 
 int drawSquare(unsigned short x, unsigned short y, unsigned short size, unsigned short color)

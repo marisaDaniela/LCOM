@@ -8,7 +8,7 @@
  */
 
 // user-friendly color names
-/*
+
 unsigned long rgb(int r, int g, int b)
 {
     return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
@@ -27,7 +27,7 @@ unsigned long rgb(int r, int g, int b)
 #define SILVER rgb(192,192,192)
 #define TEAL rgb(0,128,128)
 #define WHITE rgb(255,255,255)
-#define YELLOW rgb(255,255,0)*/
+#define YELLOW rgb(255,255,0)
 /**
  * @brief Initializes the video module in graphics mode
  *
@@ -54,6 +54,5 @@ int drawSquare(unsigned short x, unsigned short y, unsigned short size, unsigned
 
 void drawLine(unsigned xi, unsigned yi, unsigned xf, unsigned yf, char color);
 
-int fillDisplay(unsigned long color);
 
 #endif /* __GRAPHICS_H */

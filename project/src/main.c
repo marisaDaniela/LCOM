@@ -1,44 +1,35 @@
 #include <stdio.h>
 #include "vbe.h"
 #include "graphics.h"
-#include "snake.h"
 
 int main(int argc, char **argv)
 {
 	srand(time(NULL));
 	sef_startup();
 
-	void * vgInit = vg_init(0x114);
-	if( vgInit == NULL )
-	{
-		vg_exit();
-		printf("test_square::failed vg_init()\n");
-		return -1;
-	}
 
-	unsigned char key;
+	printf("Hello, world!\n");
+	unsigned short color = 1;
+	printf("NUM:%us", color);
 
-	Snake* snake = (Snake*)startSnake();
+	//void * vgInit = vg_init(0x114);
+	//unsigned char key;
 
-	/*while(!snake->done) {
-		updateSnake(snake);
-
-		if (!snake->done) {
-			if (snake->draw)
-				drawSnake(snake);
-		}
-	}*/
-	drawSquare(20,20,500,1);
+//	if( vgInit == NULL )
+//	{
+//		vg_exit();
+//		printf("test_square::failed vg_init()\n");
+//		return -1;
+//	}
 
 
-	stopSnake(snake);
-
+	drawSquare(20,20,500,color);
 
 	sleep(5);
 
 
 	//TODO: KeyESC pressed to leave
 
-	vg_exit();
+	//vg_exit();
 	return 0;
 }
