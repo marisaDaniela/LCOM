@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include "vbe.h"
 #include "graphics.h"
+#include "game.h"
 
 int main(int argc, char **argv)
 {
 	srand(time(NULL));
 	sef_startup();
 
+	game();
 
-	printf("Hello, world!\n");
-	unsigned short color = 1;
+	/*printf("Hello, world!\n");
 	printf("NUM:%us", color);
 
 	//void * vgInit = vg_init(0x114);
@@ -23,13 +24,13 @@ int main(int argc, char **argv)
 //	}
 
 
-	drawSquare(20,20,500,color);
+	drawSquare(20,20,500,1);
 
 	sleep(5);
 
 
 	//TODO: KeyESC pressed to leave
 
-	//vg_exit();
+	//vg_exit();*/
 	return 0;
 }

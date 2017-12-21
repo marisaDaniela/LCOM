@@ -3,7 +3,6 @@
 #include <minix/com.h>
 #include "i8254.h"
 
-
 int g_hook=2;
 int g_counter=0;
 

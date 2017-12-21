@@ -1,11 +1,13 @@
 #pragma once
 
+#include "snake.h"
+
 
 typedef struct {
 
 	int x;				// x position
 	int y;				// y position
-	bool active			// ative 
+	int active;			// ative
 	
 } Fruit;
 

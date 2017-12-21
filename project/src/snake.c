@@ -9,8 +9,6 @@ const int FPS = 25; //frames per second
 Snake* initSnake(){
 	Snake* snake = (Snake *) malloc(sizeof(Snake));
 
-	snake->IRQ_SET_KBD = kbd_subscribe_int();
-
 	snake->done = 0, snake->draw = 1;
 	snake->scancode = 0;
 	

@@ -6,7 +6,7 @@ Fruit* newFruit(double ix, double iy)
 	
 	fruit->x = ix;
     fruit->y = iy;
-    fruit->active = true;
+    fruit->active = 1;
 	
 	return fruit; 
 }
@@ -22,7 +22,7 @@ void eatFruit(Fruit * fruit, Snake * snake)
         return;
  
     /* Eats fruits and adds to score */
-    fruit->active = false;
+    fruit->active = 0;
     snake->score++;
     snake->lenght++; 
  

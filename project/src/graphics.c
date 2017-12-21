@@ -17,17 +17,43 @@
  */
 #define VRAM_PHYS_ADDR	0xF0000000
 #define H_RES             1024
-#define V_RES		  768
+#define V_RES		  	768
 #define BITS_PER_PIXEL	  8
-
 /* Private global variables */
 
 static char *video_mem;		/* Process (virtual) address to which VRAM is mapped */
+static char *doubleBuffer;
+
 
 static unsigned h_res;		/* Horizontal screen resolution in pixels */
 static unsigned v_res;		/* Vertical screen resolution in pixels */
 static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
 unsigned int vram_size;
+
+int getHorResolution() {
+	return H_RES;
+}
+
+int getVerResolution() {
+	return V_RES;
+}
+
+char *getGraphicsBuffer() {
+	return doubleBuffer;
+}
+
+void initDoubleBuffer() {
+	doubleBuffer = malloc (vram_size);
+}
+
+void bufferToVideoMem() {
+	memcpy(video_mem, doubleBuffer, vram_size);
+}
+
+void clearBuffer() {
+	memset(doubleBuffer, 6, vram_size);
+}
+
 
 void *vg_init(unsigned short mode) {
 	int r;

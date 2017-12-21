@@ -1,10 +1,9 @@
 #pragma once
-
 #include "timer.h"
 
 typedef struct {
-	int IRQ_SET_TIMER;			// to timer interrupts
-	int IRQ_SET_KBD;
+//	int IRQ_SET_TIMER;			// to timer interrupts
+//	int IRQ_SET_KBD;
 	int done, draw;
 	unsigned long scancode;
 	

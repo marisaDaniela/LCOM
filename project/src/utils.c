@@ -1,5 +1,3 @@
-#pragma once
-
 #include <stdio.h>
 
 int fileExists(const char* filename) {
@@ -10,4 +8,18 @@ int fileExists(const char* filename) {
 		return 1;
 	}
 	return 0;
+}
+
+const char* path(const char* name)
+{
+    // Creates and writes the pathname to reader
+    char reader[256];
+    sprintf(reader, "/home/lcom/lcom1718-t1g04/project/res/img/%s.jpg", name);
+
+    // Creates pathname and copies the reader into it
+    char* pathname = (char*) malloc(256);
+    strcpy(pathname, reader);
+
+    // Returns the pathname
+    return pathname;
 }
