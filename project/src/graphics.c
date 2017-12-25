@@ -16,9 +16,9 @@
  *     service run `pwd`/lab5 -args "mode 0x105"
  */
 #define VRAM_PHYS_ADDR	0xF0000000
-#define H_RES             1024
+#define H_RES           1024
 #define V_RES		  	768
-#define BITS_PER_PIXEL	  8
+#define BITS_PER_PIXEL  8
 /* Private global variables */
 
 static char *video_mem;		/* Process (virtual) address to which VRAM is mapped */
@@ -42,7 +42,8 @@ char *getGraphicsBuffer() {
 	return doubleBuffer;
 }
 
-void initDoubleBuffer() {
+void initDoubleBuffer()
+{
 	doubleBuffer = malloc (vram_size);
 }
 
@@ -51,9 +52,8 @@ void bufferToVideoMem() {
 }
 
 void clearBuffer() {
-	memset(doubleBuffer, 6, vram_size);
+	memset(doubleBuffer, 0, vram_size);
 }
-
 
 void *vg_init(unsigned short mode) {
 	int r;
@@ -133,7 +133,6 @@ int drawSquare(unsigned short x, unsigned short y, unsigned short size, unsigned
 	return 0;
 }
 
-
 void paintPixel(int x, int y, char color, char* buf) {
 	if (x < h_res && y < v_res) {
 		*(buf + y * h_res + x) = color;
@@ -175,7 +174,6 @@ void drawLine(unsigned xi, unsigned yi, unsigned xf, unsigned yf, char color) {
 		}
 	}
 }
-
 
 int vg_exit() {
 	struct reg86u reg86;

@@ -13,19 +13,7 @@ Fruit* newFruit(double ix, double iy)
 
 void eatFruit(Fruit * fruit, Snake * snake)
 { 
-    /* Horizontally */
-    if(snake->x_head < fruit->x || snake->x_head > fruit->x )
-        return;
-        
-	/* Vertically */
-    if(snake->y_head < fruit->y || snake->y_head > fruit->y )
-        return;
- 
-    /* Eats fruits and adds to score */
-    fruit->active = 0;
-    snake->score++;
-    snake->lenght++; 
+
  
     return;	
-
 } 

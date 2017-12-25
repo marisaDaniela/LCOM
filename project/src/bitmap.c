@@ -4,7 +4,10 @@
 #include "graphics.h"
 #include "utils.h"
 
-Bitmap* loadBitmap(const char* filename) {
+Bitmap* loadBitmap(const char* filename)
+{
+	printf("\n LOADING BITMAP %s \n", filename);
+
     // allocating necessary size
     Bitmap* bmp = (Bitmap*) malloc(sizeof(Bitmap));
 
@@ -72,11 +75,15 @@ Bitmap* loadBitmap(const char* filename) {
     bmp->bitmapData = bitmapImage;
     bmp->bitmapInfoHeader = bitmapInfoHeader;
 
+    printf("\n FINISHED LOADING BITMAP %s \n", filename);
+
     return bmp;
 }
 
 void drawBitmap(Bitmap* bmp, int x, int y, Alignment alignment) {
-    if (bmp == NULL)
+	printf("\n DRAWING BITMAP \n");
+
+	if (bmp == NULL)
         return;
 
     int width = bmp->bitmapInfoHeader.width;
@@ -121,6 +128,8 @@ void drawBitmap(Bitmap* bmp, int x, int y, Alignment alignment) {
 
         memcpy(bufferStartPos, imgStartPos, drawWidth * 2);
     }
+
+    printf("\n FINISHED DRAWING BITMAP 2 \n");
 }
 
 void deleteBitmap(Bitmap* bmp) {

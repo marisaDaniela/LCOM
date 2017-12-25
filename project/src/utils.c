@@ -14,7 +14,7 @@ const char* path(const char* name)
 {
     // Creates and writes the pathname to reader
     char reader[256];
-    sprintf(reader, "/home/lcom/lcom1718-t1g04/project/res/img/%s.jpg", name);
+    sprintf(reader, "/home/lcom/project/res/img/%s.bmp", name);
 
     // Creates pathname and copies the reader into it
     char* pathname = (char*) malloc(256);

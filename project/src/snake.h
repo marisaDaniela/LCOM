@@ -1,25 +1,19 @@
 #pragma once
-#include "timer.h"
+#include "point.h"
+#include "utils.h"
 
-typedef struct {
-//	int IRQ_SET_TIMER;			// to timer interrupts
-//	int IRQ_SET_KBD;
-	int done, draw;
-	unsigned long scancode;
-	
-	/*
-	int x;						// x position
-	int y;						// y position
-	*/
-	
-	unsigned int score; 
-	unsigned int lenght; 		// snake's lenght
-	
-	// snake's head coord
-	int x_head;     				
-	int y_head; 	
-	int direction_head;			// direction
+#define INIT_SIZE 3
 
+typedef enum
+{
+	LEFT, RIGHT, UP, DOWN
+} Direction;
+
+typedef struct
+{
+	Direction direction;	// snake's direction
+	unsigned int size; 		// snake's size
+	Point** snakePosition;	// snake[0] is the tail snake[size - 1] is the head
 } Snake;
 
 Snake* initSnake();

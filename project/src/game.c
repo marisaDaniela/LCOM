@@ -1,18 +1,23 @@
 #include "game.h"
-#include "bitmap.h"
 
 int game()
 {
-	//subscrever as interrupcoes do timer
+	printf("IN GAME\n");
+
+	// Init Timer
 	int irq_timer = timer_subscribe_int();
 
-	//subscrever as interrupcoes do teclado
+	// Init Keyboard
 	int irq_kbd = kbd_subscribe_int();
 
-	//subscrever as interrupcoes do rato
-	int irq_mouse = mouse_subscribe_int( );
-	
-	// inicializar gráficos
+	// Init Mouse
+	int irq_mouse = mouse_subscribe_int();
+
+	printf("TIMER: %d AND KEYBOARD: %d\n", irq_timer, irq_kbd);
+
+	// Init Graphics
+
+	/*
 	if(lm_init()==NULL)
 	{
 		return;
@@ -24,56 +29,70 @@ int game()
 	{
 		return;
 	}
-	
-	// teste
-	initDoubleBuffer();
 
-	Bitmap* lcom = loadBitmap(path('lcom'));
+	initDoubleBuffer();
 	clearBuffer();
-	drawBitmap('lcom', 261, 133, ALIGN_LEFT);
 	
+	// Load bitmaps
+
+	Bitmap* blueSquare = loadBitmap(path("blueSquare"));
+	Bitmap* board = loadBitmap(path("board"));
+	Bitmap* snakeBody = loadBitmap(path("snakeBody"));
+
+	drawBitmap(blueSquare, 0, 0, ALIGN_LEFT);
+	drawBitmap(board, 242, 114, ALIGN_LEFT);
 	bufferToVideoMem();
-	
-	return;
+
+	sleep(10);
+	*/
 
 	// game loop
 	int ipc_status, r;
 	message msg;
 	int RUNNING = 1;
-	while(RUNNING) {
-		if (driver_receive(ANY, &msg, &ipc_status) != OK) {
+	printf("entering game loop");
+	NEWLINE;
+
+	sleep(5);
+
+	while(RUNNING)
+	{
+		if (driver_receive(ANY, &msg, &ipc_status) != OK)
+		{
 			printf("driver_receive failed with: %d\n",r);
 			continue;
 		}
-		if (is_ipc_notify(ipc_status)) {
-			switch (_ENDPOINT_P(msg.m_source)) {
-
+		if (is_ipc_notify(ipc_status))
+		{
+			switch (_ENDPOINT_P(msg.m_source))
+			{
 			//received notification
 			case HARDWARE:
-				if (msg.NOTIFY_ARG & irq_timer) {
+				if (msg.NOTIFY_ARG & irq_timer)
+				{
 					printf("interrupt timer\n");
-
 				}
 
-				if (msg.NOTIFY_ARG & irq_kbd) {
+				if (msg.NOTIFY_ARG & irq_kbd)
+				{
+					RUNNING = 0;
 					printf("interrupt keyboard\n");
-
 				}
 
-				/*if (msg.NOTIFY_ARG & irq_mouse) {
+				/*
+				if (msg.NOTIFY_ARG & irq_mouse)
+				{
 					printf("interrupt mouse\n");
-
-				}*/
+				}
+				*/
 
 				break;
 			}
 		}
-
-		mouse_unsubscribe_int();
-		kbd_unsubscribe_int();
-		timer_unsubscribe_int();
-		RUNNING = 0;
 	}
 
-
+	mouse_unsubscribe_int();
+	kbd_unsubscribe_int();
+	timer_unsubscribe_int();
+	//vg_exit();
 }
