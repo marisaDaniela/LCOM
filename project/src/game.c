@@ -11,9 +11,9 @@ int game()
 	int irq_kbd = kbd_subscribe_int();
 
 	// Init Mouse
-	int irq_mouse = mouse_subscribe_int();
+	//int irq_mouse = mouse_subscribe_int();
 
-	printf("TIMER: %d AND KBD: %d AND MOUSE %d\n", irq_timer, irq_kbd, irq_mouse);
+	printf("TIMER: %d AND KBD: %d \n", irq_timer, irq_kbd);
 
 	// Init Graphics
 
@@ -69,23 +69,23 @@ int game()
 			case HARDWARE:
 				if (msg.NOTIFY_ARG & irq_timer)
 				{
-					RUNNING = 0;
 					printf("Subscribe timer\n");
 				}
 
 				if (msg.NOTIFY_ARG & irq_kbd)
 				{
-					RUNNING = 0;
 					printf("Subscribe keyboard\n");
+					RUNNING = 0;
+					
 				}
 
-
+/*
 				if (msg.NOTIFY_ARG & irq_mouse)
 				{
 					RUNNING = 0;
 					printf("Subscribe mouse\n");
 				}
-
+*/
 
 				break;
 			}
@@ -114,6 +114,7 @@ int game()
 	else {
 		printf("YAY!\n");
 	}
+	/*
 	int var2;
 	if((var2 = mouse_unsubscribe_int()) != 0)
 	{
@@ -124,7 +125,7 @@ int game()
 	{
 		printf("YAYYY!\n");
 		return 0;
-	}
+	}*/
 
 	//vg_exit();
 }
