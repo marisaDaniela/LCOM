@@ -1,11 +1,10 @@
 #include <minix/syslib.h>
 #include <minix/drivers.h>
 #include <minix/com.h>
-#include "timer.h"
+#include "i8254.h"
 
-int g_hook=1;
+int g_hook=2;
 int g_counter=0;
-
 
 int timer_get_conf(unsigned char timer, unsigned char *st) {
 
@@ -227,9 +226,9 @@ int timer_set_frequency(unsigned char timer, unsigned long freq) {
 	return 0;
 }
 
-int timer_subscribe_int() {
+int timer_subscribe_int(void ) {
 
-	int bitmask = BIT(g_hook);
+	int BIT_MASK = BIT(g_hook);
 
 	if (sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &g_hook) != 0)
 	{
@@ -243,26 +242,17 @@ int timer_subscribe_int() {
 		return -1;
 	}
 
-	return bitmask;
+	return BIT_MASK;
 }
 
 int timer_unsubscribe_int()
 {
-	if (sys_irqrmpolicy(&g_hook) != 0) {
-		printf("fail timer policy \n");
-	}
-	if (sys_irqdisable(&g_hook) != 0) {
-		printf("fail timer disable \n");
-		return -1;
-	}
-
-	return 0;
-/*
 	if (sys_irqdisable(&g_hook) == 0 && sys_irqrmpolicy(&g_hook) == 0)
 	{
 		return 0;
 	}
-	return -1;*/
+
+	return -1;
 }
 
 void timer_int_handler()
@@ -322,5 +312,4 @@ int timer_test_int(unsigned long time)
 
 	return timer_unsubscribe_int();
 }
-
 

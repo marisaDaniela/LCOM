@@ -9,6 +9,8 @@
 
 #define TIMER_FREQ  1193182    /**< @brief clock frequency for timer in PC and AT */
 
+#define BIT(n) (0x01<<(n))
+
 #define TIMER0_IRQ	        0    /**< @brief Timer 0 IRQ line */
 
 /* I/O port addresses */
@@ -55,4 +57,3 @@
 /**@}*/
 
 #endif /* _LCOM_I8254_H */
-

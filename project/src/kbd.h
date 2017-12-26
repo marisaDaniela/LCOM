@@ -1,8 +1,5 @@
 #ifndef __KBD_H
 #define __KBD_H
-#include "utils.h"
-#include "i8042.h"
-
 
 /** @defgroup test3 test3
  * @{
@@ -45,4 +42,3 @@ int kbd_test_poll();
 int kbd_test_timed_scan(unsigned short n);
 
 #endif /* __KBD_H */
-

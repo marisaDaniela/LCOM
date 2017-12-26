@@ -6,11 +6,11 @@
 #include "kbd.h"
 #include "mouse.h"
 
-#include "utils.h"
 #include "i8042.h"
 #include "bitmap.h"
+
+#include "utils.h"
 
 #define mode 0x117
 
 int game();
-

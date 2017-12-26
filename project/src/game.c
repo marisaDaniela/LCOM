@@ -11,9 +11,9 @@ int game()
 	int irq_kbd = kbd_subscribe_int();
 
 	// Init Mouse
-	//int irq_mouse = mouse_subscribe_int();
+	int irq_mouse = mouse_subscribe_int();
 
-	printf("TIMER: %d AND KEYBOARD: %d\n", irq_timer ,irq_kbd);
+	printf("TIMER: %d AND KBD: %d AND MOUSE %d\n", irq_timer, irq_kbd, irq_mouse);
 
 	// Init Graphics
 
@@ -32,7 +32,7 @@ int game()
 
 	initDoubleBuffer();
 	clearBuffer();
-	
+
 	// Load bitmaps
 
 	Bitmap* blueSquare = loadBitmap(path("blueSquare"));
@@ -44,7 +44,7 @@ int game()
 	bufferToVideoMem();
 
 	sleep(10);
-	*/
+	 */
 
 	// game loop
 	int ipc_status, r;
@@ -52,12 +52,11 @@ int game()
 	int RUNNING = 1;
 	printf("entering game loop");
 	NEWLINE;
-
-	sleep(3);
+	//sleep(3);
 
 	while(RUNNING)
 	{
-		if (r= driver_receive(ANY, &msg, &ipc_status) != 0)
+		if (r = driver_receive(ANY, &msg, &ipc_status) != 0)
 		{
 			printf("driver_receive failed with: %d\n",r);
 			continue;
@@ -70,40 +69,62 @@ int game()
 			case HARDWARE:
 				if (msg.NOTIFY_ARG & irq_timer)
 				{
-					printf("interrupt timer\n");
-					//RUNNING = 0;
+					RUNNING = 0;
+					printf("Subscribe timer\n");
 				}
+
 				if (msg.NOTIFY_ARG & irq_kbd)
 				{
-					printf("interrupt keyboard\n");
 					RUNNING = 0;
+					printf("Subscribe keyboard\n");
 				}
-				
-				/*
+
+
 				if (msg.NOTIFY_ARG & irq_mouse)
 				{
-					printf("interrupt mouse\n");
+					RUNNING = 0;
+					printf("Subscribe mouse\n");
 				}
-				*/
+
 
 				break;
 			}
 			printf("adeus \n");
 		}
 		printf("adeus2 \n");
-		
 	}
 
-	//mouse_unsubscribe_int();
-	if (timer_unsubscribe_int()!=0)
-	{
-		printf("failed to unsubscribe timer \n"); 
+
+	if(timer_unsubscribe_int()!= 0){
+		printf("Fail\n");
+		return -1;
 	}
-	if (kbd_unsubscribe_int()!=0)
+	else
 	{
-		printf("failed to unsubscribe kbd \n");
+		printf("Success\n");
+	}
+	int var;
+
+	//printf("KBD_UNSUBSCRIBE %d\n", var);
+	if((var = kbd_unsubscribe_int()) != 0){
+		printf("KBD_UNS: %d\n", var);
+		printf("NO no no!!");
+		return -1;
+	}
+	else {
+		printf("YAY!\n");
+	}
+	int var2;
+	if((var2 = mouse_unsubscribe_int()) != 0)
+	{
+		printf("MOUSE_UNS: %d\n", var2);
+		printf("Oh no\n");
+	}
+	else
+	{
+		printf("YAYYY!\n");
+		return 0;
 	}
 
 	//vg_exit();
 }
-

@@ -1,12 +1,12 @@
+#include "i8042.h"
 #include <minix/syslib.h>
 #include <minix/drivers.h>
 #include <minix/com.h>
 #include "timer.h"
-#include "kbd.h"
 
-int g_hook2 =2 ;
+
+int g_hook2 = 1;
 int g_counter2 = 0;
-
 
 // subscribe interruption
 int print(unsigned short scancode);
@@ -31,14 +31,16 @@ int kbd_subscribe_int() {
 // unsubscribe interruption
 
 int kbd_unsubscribe_int() {
-	if (sys_irqrmpolicy(&g_hook2) != 0) {
-		printf("fail kbd policy \n");
-		return -1;
-	}
+	unsigned long in = 0;
+	sys_inb(OUT_BUF, &in);
+
 	if (sys_irqdisable(&g_hook2) != 0) {
-		printf("fail kbd disable \n");
+			return -1;
+	}
+	if (sys_irqrmpolicy(&g_hook2) != 0) {
 		return -1;
 	}
+
 
 	return 0;
 
