@@ -1,5 +1,6 @@
 #ifndef __TIMER_H
 #define __TIMER_H
+#include "utils.h"
 #include "i8254.h"
 
 /** @defgroup timer timer
@@ -93,3 +94,4 @@ int timer_test_int(unsigned long time);
 int timer_test_config(unsigned char timer);
 
 #endif /* __TIMER_H */
+

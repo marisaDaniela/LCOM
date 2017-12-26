@@ -1,7 +1,6 @@
 #ifndef _I8042_H_
 #define _I8042_H_
 
-#define BIT(n) 				(0x01<<(n))
 #define BREAK_CODE_BIT 		BIT(7)
 
 #define ESC					0x81
@@ -59,3 +58,4 @@ the KBC*/
 #define MOUSE_Y_OVF 			BIT(7)
 
 #endif /* _I8042_H_ */
+

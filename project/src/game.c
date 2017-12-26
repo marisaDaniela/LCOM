@@ -11,9 +11,9 @@ int game()
 	int irq_kbd = kbd_subscribe_int();
 
 	// Init Mouse
-	int irq_mouse = mouse_subscribe_int();
+	//int irq_mouse = mouse_subscribe_int();
 
-	printf("TIMER: %d AND KEYBOARD: %d\n", irq_timer, irq_kbd);
+	printf("TIMER: %d AND KEYBOARD: %d\n", irq_timer ,irq_kbd);
 
 	// Init Graphics
 
@@ -53,11 +53,11 @@ int game()
 	printf("entering game loop");
 	NEWLINE;
 
-	sleep(5);
+	sleep(3);
 
 	while(RUNNING)
 	{
-		if (driver_receive(ANY, &msg, &ipc_status) != OK)
+		if (r= driver_receive(ANY, &msg, &ipc_status) != 0)
 		{
 			printf("driver_receive failed with: %d\n",r);
 			continue;
@@ -71,14 +71,14 @@ int game()
 				if (msg.NOTIFY_ARG & irq_timer)
 				{
 					printf("interrupt timer\n");
+					//RUNNING = 0;
 				}
-
 				if (msg.NOTIFY_ARG & irq_kbd)
 				{
-					RUNNING = 0;
 					printf("interrupt keyboard\n");
+					RUNNING = 0;
 				}
-
+				
 				/*
 				if (msg.NOTIFY_ARG & irq_mouse)
 				{
@@ -88,11 +88,22 @@ int game()
 
 				break;
 			}
+			printf("adeus \n");
 		}
+		printf("adeus2 \n");
+		
 	}
 
-	mouse_unsubscribe_int();
-	kbd_unsubscribe_int();
-	timer_unsubscribe_int();
+	//mouse_unsubscribe_int();
+	if (timer_unsubscribe_int()!=0)
+	{
+		printf("failed to unsubscribe timer \n"); 
+	}
+	if (kbd_unsubscribe_int()!=0)
+	{
+		printf("failed to unsubscribe kbd \n");
+	}
+
 	//vg_exit();
 }
+

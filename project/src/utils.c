@@ -23,3 +23,4 @@ const char* path(const char* name)
     // Returns the pathname
     return pathname;
 }
+
