@@ -75,7 +75,7 @@ int kbc_read_key(unsigned char *key) {
 // function to prints makecode and breakcode
 // checks if the scancode is breakcode or makecode
 
-int kbd_handler_c() {
+unsigned short kbd_handler_c() {
 	unsigned char key;
 	unsigned short scancode;
 
@@ -95,6 +95,7 @@ int kbd_handler_c() {
 		scancode = key;
 
 	print(scancode);
+	return scancode;
 }
 
 int print(unsigned short scancode){

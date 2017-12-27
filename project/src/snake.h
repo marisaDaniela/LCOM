@@ -1,6 +1,7 @@
 #pragma once
 #include "point.h"
 #include "utils.h"
+#include "i8042.h"
 
 #define INIT_SIZE 3
 

@@ -6,6 +6,15 @@
 
 #define ESC					0x81
 
+#define SNAKE_W				0x91
+#define SNAKE_S				0x9f
+#define SNAKE_A				0x9e
+#define SNAKE_D				0xa0
+#define SNAKE_UP_KEY		0xe0c8
+#define SNAKE_DOWN_KEY		0xe0d0
+#define SNAKE_LEFT_KEY		0xe0cb
+#define SNAKE_RIGHT_KEY		0xe0cd
+
 // KBC REGISTERS
 
 #define STAT_REG 			0x64
@@ -25,7 +34,7 @@
 
 /**
 Stream Mode The mouse sends the data packet at a (programmable)
-maximum fixed rate to the KBC, as determined by “mouse events”,
+maximum fixed rate to the KBC, as determined by a mouse event
 i.e. mouse movements and changes in buttons state
 
 Remote Mode The mouse sends data packets only upon request of

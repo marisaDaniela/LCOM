@@ -1,6 +1,6 @@
 #include "point.h"
 
-Point* getPoint(unsigned int x, unsigned int y)
+Point* getPoint(int x, int y)
 {
 	Point* point = (Point *) malloc(sizeof(Point));
 
@@ -14,8 +14,8 @@ Point* pointToCoord(Point* point)
 {
 	Point* coord = (Point *) malloc(sizeof(Point));
 
-	coord->x = point->x * TILE_SIZE;
-	coord->y = point->y * TILE_SIZE;
+	coord->x = point->x * TILE_SIZE + BOARD_X + TILE_SIZE;
+	coord->y = point->y * TILE_SIZE + BOARD_Y + TILE_SIZE;
 
 	return coord;
 }

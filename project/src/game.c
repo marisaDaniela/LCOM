@@ -2,8 +2,6 @@
 
 int game()
 {
-	printf("IN GAME\n");
-
 	// Init Timer
 	int irq_timer = timer_subscribe_int();
 
@@ -13,17 +11,9 @@ int game()
 	// Init Mouse
 	//int irq_mouse = mouse_subscribe_int();
 
-	printf("TIMER: %d AND KBD: %d \n", irq_timer, irq_kbd);
-
 	// Init Graphics
-
-	/*
-	if(lm_init()==NULL)
-	{
-		return;
-	}
-
-	char *video_mem = vg_init(mode);
+	lm_init();
+	char *video_mem = (char*) vg_init(mode);
 
 	if(video_mem == NULL)
 	{
@@ -31,28 +21,26 @@ int game()
 	}
 
 	initDoubleBuffer();
-	clearBuffer();
 
-	// Load bitmaps
-
+	// Load Bitmaps
 	Bitmap* blueSquare = loadBitmap(path("blueSquare"));
 	Bitmap* board = loadBitmap(path("board"));
+	Bitmap* snakeHead = loadBitmap(path("snakeBody"));
 	Bitmap* snakeBody = loadBitmap(path("snakeBody"));
+	Bitmap* food = loadBitmap(path("food"));
 
-	drawBitmap(blueSquare, 0, 0, ALIGN_LEFT);
-	drawBitmap(board, 242, 114, ALIGN_LEFT);
-	bufferToVideoMem();
+	// Load Entities
+	Snake* snake = initSnake();
+	Point* foodPosition = getPoint(10, 10);
 
-	sleep(10);
-	 */
-
-	// game loop
+	// Game Loop
 	int ipc_status, r;
 	message msg;
+	int difficulty = 6;
+	int timer = 0;
+	int time_bound = 60 / difficulty;
 	int RUNNING = 1;
-	printf("entering game loop");
-	NEWLINE;
-	//sleep(3);
+
 
 	while(RUNNING)
 	{
@@ -69,14 +57,63 @@ int game()
 			case HARDWARE:
 				if (msg.NOTIFY_ARG & irq_timer)
 				{
-					printf("Subscribe timer\n");
+					// Update timer
+					timer++;
+
+					// Clear the buffer
+					clearBuffer();
+
+					// Draw board
+					drawBitmap(board, BOARD_X, BOARD_Y, ALIGN_LEFT);
+
+					// Draw snake
+					Point** positions = snake->snakePosition;
+
+					unsigned int i;
+					for(i = 0; i < snake->size; i++)
+					{
+						Point* currPos = positions[i];
+						Point* coords = (Point*)pointToCoord(currPos);
+
+						if(i == (snake->size - 1))
+						{
+							// Head
+							drawBitmap(snakeHead, coords->x, coords->y, ALIGN_LEFT);
+						}
+						else
+						{
+							// Body
+							drawBitmap(snakeBody, coords->x, coords->y, ALIGN_LEFT);
+						}
+					}
+
+					// Draw food
+					Point* foodCoords = (Point*)pointToCoord(foodPosition);
+					drawBitmap(food, foodCoords->x, foodCoords->y, ALIGN_LEFT);
+
+					// Move Snake
+					if(timer >= time_bound)
+					{
+						timer -= time_bound;
+						moveSnake(snake, foodPosition);
+					}
+
+					// Buffer to Video Memory
+					bufferToVideoMem();
 				}
 
 				if (msg.NOTIFY_ARG & irq_kbd)
 				{
-					printf("Subscribe keyboard\n");
-					RUNNING = 0;
-					
+					unsigned short key = kbd_handler_c();
+
+					printf("%i", key);
+
+					updateDirection(snake, key);
+
+					if (key == ESC)
+					{
+						RUNNING = 0;
+					}
 				}
 
 /*
@@ -86,35 +123,15 @@ int game()
 					printf("Subscribe mouse\n");
 				}
 */
-
 				break;
 			}
-			printf("adeus \n");
 		}
-		printf("adeus2 \n");
 	}
 
+	timer_unsubscribe_int();
+	kbd_unsubscribe_int();
 
-	if(timer_unsubscribe_int()!= 0){
-		printf("Fail\n");
-		return -1;
-	}
-	else
-	{
-		printf("Success\n");
-	}
-	int var;
-
-	//printf("KBD_UNSUBSCRIBE %d\n", var);
-	if((var = kbd_unsubscribe_int()) != 0){
-		printf("KBD_UNS: %d\n", var);
-		printf("NO no no!!");
-		return -1;
-	}
-	else {
-		printf("YAY!\n");
-	}
-	/*
+	/* UNSUBSCRIBE MOUSE
 	int var2;
 	if((var2 = mouse_unsubscribe_int()) != 0)
 	{
@@ -127,5 +144,5 @@ int game()
 		return 0;
 	}*/
 
-	//vg_exit();
+	vg_exit();
 }

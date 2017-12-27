@@ -7,20 +7,23 @@ int main(int argc, char **argv)
 {
 	/*
 	Snake* snake = initSnake();
-	Point* foodPosition = getPoint(0,0);
-	printf("BEFORE MOVING X: %d AND Y: %d", snake->snakePosition[2]->x, snake->snakePosition[2]->y);
-	NEWLINE;
+
+	printSnakePosition(snake);
+
+	Point* foodPosition = getPoint(10, 10);
 
 	moveSnake(snake, foodPosition);
 
-	printf("AFTER MOVING X: %d AND Y: %d", snake->snakePosition[2]->x, snake->snakePosition[2]->y);
 	NEWLINE;
+
+	printSnakePosition(snake);
+
+	return;
 	*/
 
 	printf("Entering Game\n");
 	srand(time(NULL));
 	game();
 
-	// printf("\n\n\n");
 	return;
 }

@@ -11,6 +11,10 @@
 
 #include "utils.h"
 
+#include "snake.h"
+
 #define mode 0x117
 
 int game();
+
+void printSnakePosition(Snake* snake);

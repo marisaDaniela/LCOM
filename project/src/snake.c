@@ -5,11 +5,11 @@ const int FPS = 25; //frames per second
 
 Snake* initSnake()
 {
-	Snake* snake = (Snake *) malloc(sizeof(snake));
+	Snake* snake = malloc(sizeof(Snake));
 
 	snake->size = INIT_SIZE;
 	
-	snake->snakePosition = malloc(INIT_SIZE * sizeof(Point));
+	snake->snakePosition = malloc(INIT_SIZE * sizeof(snake->snakePosition));
 	snake->snakePosition[0] = getPoint(0,0);
 	snake->snakePosition[1] = getPoint(1,0);
 	snake->snakePosition[2] = getPoint(2,0);
@@ -24,6 +24,16 @@ void moveSnake(Snake* snake, Point* foodPosition)
 	// Calculate new head position
 	Point* headPosition = snake->snakePosition[snake->size - 1];
 
+	// Save old body
+	Point** oldBody = malloc(sizeof(oldBody));
+
+	unsigned int i = 0;
+	for(i = 0; i < snake->size; i++)
+	{
+		oldBody[i] = getPoint(snake->snakePosition[i]->x, snake->snakePosition[i]->y);
+	}
+
+	// Move head
 	switch(snake->direction)
 	{
 	case LEFT:
@@ -47,17 +57,24 @@ void moveSnake(Snake* snake, Point* foodPosition)
 		break;
 	}
 
-	// Save old body
-	Point** oldBody = snake->snakePosition;
+	if(headPosition->x < 0 || headPosition->x > 25 || headPosition->y < 0 || headPosition->y > 25)
+	{
+		// Dead
+		snake = initSnake();
+		return;
+	}
 
 	// Check if food eaten
 	if(comparePoints(headPosition, foodPosition))
 	{
 		// Food eaten
 
+		// Save head
+		Point* head = getPoint(headPosition->x, headPosition->y);
+
 		// Size increases
 		snake->size += 1;
-		snake->snakePosition = malloc(snake->size * sizeof(Point));
+		snake->snakePosition = malloc(snake->size * sizeof(snake->snakePosition));
 
 		// Regenerate body
 		unsigned int i;
@@ -65,19 +82,62 @@ void moveSnake(Snake* snake, Point* foodPosition)
 		{
 			snake->snakePosition[i] = oldBody[i];
 		}
+		snake->snakePosition[snake->size - 1] = head;
 	}
 	else
 	{
 		// Food not eaten
 
+		printf("\nFood eaten\n");
+
 		// Regenerate body
 		unsigned int i;
-		for(i = 1; i < (snake->size - 1); i++)
+		for(i = 1; i < snake->size; i++)
 		{
 			snake->snakePosition[i - 1] = oldBody[i];
 		}
 	}
+}
 
-	// Place head
-	snake->snakePosition[snake->size - 1] = headPosition;
+void printSnakePosition(Snake* snake)
+{
+	printf("PRINTING YOUR SNAKE:\n");
+
+	unsigned int i = 0;
+	for(i = 0; i < snake->size; i++)
+	{
+		printf("X: %d AND Y: %d\n", snake->snakePosition[i]->x, snake->snakePosition[i]->y);
+	}
+
+	printf("FINISHED PRINTING YOUR SNAKE:\n");
+}
+
+void updateDirection(Snake* snake, unsigned short key)
+{
+	switch(key)
+	{
+	case SNAKE_A:
+
+		snake->direction = LEFT;
+		break;
+
+	case SNAKE_D:
+
+		snake->direction = RIGHT;
+		break;
+
+	case SNAKE_W:
+
+		snake->direction = UP;
+		break;
+
+	case SNAKE_S:
+
+		snake->direction = DOWN;
+		break;
+
+	default:
+		// DO NOTHING
+		break;
+	}
 }

@@ -121,7 +121,7 @@ void drawBitmap(Bitmap* bmp, int x, int y, Alignment alignment) {
         if (pos < 0 || pos >= getVerResolution())
             continue;
 
-        bufferStartPos = getGraphicsBuffer();
+        bufferStartPos = (char*)getGraphicsBuffer();
         bufferStartPos += x * 2 + pos * getHorResolution() * 2;
 
         imgStartPos = bmp->bitmapData + xCorrection * 2 + i * width * 2;
