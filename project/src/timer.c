@@ -1,7 +1,7 @@
 #include <minix/syslib.h>
 #include <minix/drivers.h>
 #include <minix/com.h>
-#include "i8254.h"
+#include "timer.h"
 
 int g_hook=2;
 int g_counter=0;

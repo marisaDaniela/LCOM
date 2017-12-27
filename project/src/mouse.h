@@ -1,5 +1,6 @@
 #pragma once
 
+#include "utils.h"
 #include "i8042.h"
 #include <minix/syslib.h>
 #include <minix/drivers.h>

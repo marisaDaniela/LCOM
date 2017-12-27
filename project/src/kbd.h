@@ -1,6 +1,8 @@
 #ifndef __KBD_H
 #define __KBD_H
 
+#include "utils.h"
+#include "i8042.h"
 /** @defgroup test3 test3
  * @{
  *

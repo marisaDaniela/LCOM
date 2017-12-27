@@ -1,8 +1,8 @@
-#include "i8042.h"
 #include <minix/syslib.h>
 #include <minix/drivers.h>
 #include <minix/com.h>
 #include "timer.h"
+#include "kbd.h"
 
 
 int g_hook2 = 1;
