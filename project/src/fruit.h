@@ -1,16 +1,16 @@
 #pragma once
 
 #include "snake.h"
+#include <minix/syslib.h>
 
-
-typedef struct {
-
-	int x;				// x position
-	int y;				// y position
-	int active;			// ative
+typedef struct
+{
+	Point* fruitCoords;		
+	Point* fruitPosition;	
 	
 } Fruit;
 
-Fruit* newFruit(double ix, double iy);
-void eatFruit(Fruit * fruit, Snake * snake);
+Fruit* initFruit();
+void eatFruit();
+
 

@@ -19,7 +19,20 @@ Snake* initSnake()
 	return snake;
 }
 
-void moveSnake(Snake* snake, Point* foodPosition)
+void die(Snake* snake)
+{
+	snake->size = INIT_SIZE;
+	
+	snake->snakePosition = malloc(INIT_SIZE * sizeof(snake->snakePosition));
+	snake->snakePosition[0] = getPoint(0,0);
+	snake->snakePosition[1] = getPoint(1,0);
+	snake->snakePosition[2] = getPoint(2,0);
+
+	snake->direction = RIGHT;
+	return;
+}
+
+void moveSnake(Snake* snake, Fruit* fruit)
 {
 	// Calculate new head position
 	Point* headPosition = snake->snakePosition[snake->size - 1];
@@ -57,18 +70,32 @@ void moveSnake(Snake* snake, Point* foodPosition)
 		break;
 	}
 
-	if(headPosition->x < 0 || headPosition->x > 25 || headPosition->y < 0 || headPosition->y > 25)
+	// Check if goes against boarders
+	if(headPosition->x < 0 || headPosition->x >= 25 || headPosition->y < 0 || headPosition->y >= 25)
 	{
 		// Dead
-		snake = initSnake();
+		die(snake);
 		return;
 	}
+	// Check if goes against herself
+	int b;
+	Point* bodyPosition;
+	for(b=0; b < snake->size - 1; b++)
+	{
+		bodyPosition = snake->snakePosition[b];
+		
+		if (comparePoints(headPosition, bodyPosition))
+		{
+			die(snake);	
+			return; 		
+		}
+	}	
 
 	// Check if food eaten
-	if(comparePoints(headPosition, foodPosition))
+	if(comparePoints(headPosition, fruit->fruitPosition))
 	{
 		// Food eaten
-
+		eatFruit(fruit);
 		// Save head
 		Point* head = getPoint(headPosition->x, headPosition->y);
 
@@ -141,3 +168,4 @@ void updateDirection(Snake* snake, unsigned short key)
 		break;
 	}
 }
+

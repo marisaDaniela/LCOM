@@ -2,6 +2,8 @@
 
 int game()
 {
+	srand(time(NULL));
+	
 	// Init Timer
 	int irq_timer = timer_subscribe_int();
 
@@ -31,7 +33,7 @@ int game()
 
 	// Load Entities
 	Snake* snake = initSnake();
-	Point* foodPosition = getPoint(10, 10);
+	Fruit* fruit = initFruit();
 
 	// Game Loop
 	int ipc_status, r;
@@ -88,14 +90,15 @@ int game()
 					}
 
 					// Draw food
-					Point* foodCoords = (Point*)pointToCoord(foodPosition);
-					drawBitmap(food, foodCoords->x, foodCoords->y, ALIGN_LEFT);
+					//Point* foodCoords = (Point*)pointToCoord(food->foodPosition);
+
+					drawBitmap(food, fruit->fruitCoords->x, fruit->fruitCoords->y, ALIGN_LEFT);
 
 					// Move Snake
 					if(timer >= time_bound)
 					{
 						timer -= time_bound;
-						moveSnake(snake, foodPosition);
+						moveSnake(snake, fruit);
 					}
 
 					// Buffer to Video Memory
@@ -146,3 +149,4 @@ int game()
 
 	vg_exit();
 }
+

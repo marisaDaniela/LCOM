@@ -1,6 +1,7 @@
 #pragma once
 #include "point.h"
 #include "utils.h"
+#include "fruit.h"
 #include "i8042.h"
 
 #define INIT_SIZE 3
@@ -20,6 +21,8 @@ typedef struct
 Snake* initSnake();
 
 void updateSnake(Snake* snake);
+void die(Snake* snake);
 void drawSnake(Snake* snake);
 void stopSnake(Snake* snake);
+
 
