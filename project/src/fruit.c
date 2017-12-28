@@ -1,19 +1,23 @@
 #include "fruit.h"
 
-Fruit* newFruit(double ix, double iy)
+Fruit* initFruit()
 {
-	Fruit* fruit= (Fruit*) malloc(sizeof(Fruit)); 
-	
-	fruit->x = ix;
-    fruit->y = iy;
-    fruit->active = 1;
-	
+	srand(time(NULL));
+	int x= rand()%25; 
+	int y= rand()%25;
+	Fruit* fruit = malloc(sizeof(Fruit));
+	fruit->fruitPosition = getPoint(x, y);
+	fruit->fruitCoords = (Point*)pointToCoord(fruit->fruitPosition);
 	return fruit; 
 }
 
-void eatFruit(Fruit * fruit, Snake * snake)
-{ 
-
- 
+void eatFruit(Fruit* fruit)
+{  
+	srand(time(NULL));
+	int x= rand()%25; 
+	int y= rand()%25;
+	fruit->fruitPosition = getPoint(x, y);
+	fruit->fruitCoords = (Point*)pointToCoord(fruit->fruitPosition);
     return;	
 } 
+

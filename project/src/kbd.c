@@ -1,8 +1,9 @@
+#include "utils.h"
+#include "i8042.h"
 #include <minix/syslib.h>
 #include <minix/drivers.h>
 #include <minix/com.h>
 #include "timer.h"
-#include "kbd.h"
 
 
 int g_hook2 = 1;
@@ -250,3 +251,4 @@ int kbd_test_timed_scan(unsigned short n) {
 	timer_unsubscribe_int();
 	return kbd_unsubscribe_int(); // unsubscribe
 }
+

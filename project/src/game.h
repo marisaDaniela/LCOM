@@ -19,4 +19,3 @@
 int game();
 
 void printSnakePosition(Snake* snake);
-

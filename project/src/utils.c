@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "utils.h"
 
 int fileExists(const char* filename) {
 	FILE* file = fopen(filename, "r");
@@ -23,3 +24,4 @@ const char* path(const char* name)
     // Returns the pathname
     return pathname;
 }
+

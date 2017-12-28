@@ -31,3 +31,4 @@ int comparePoints(Point* a, Point* b)
 		return 0;
 	}
 }
+
