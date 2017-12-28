@@ -7,6 +7,7 @@ service project
                 READBIOS
                 DEVIO
                 IRQCTL
+                IOPENABLE
                 ;
         ipc
                 SYSTEM
