@@ -13,16 +13,14 @@ typedef enum
 
 typedef struct
 {
+	int score; 
 	Direction direction;	// snake's direction
 	unsigned int size; 		// snake's size
 	Point** snakePosition;	// snake[0] is the tail snake[size - 1] is the head
 } Snake;
 
 Snake* initSnake();
-
 void updateSnake(Snake* snake);
-void die(Snake* snake);
 void drawSnake(Snake* snake);
 void stopSnake(Snake* snake);
-
 

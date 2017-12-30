@@ -11,4 +11,3 @@ typedef struct {
 Point* getPoint(int x, int y);
 
 int comparePoints(Point* a, Point* b);
-

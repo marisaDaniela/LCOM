@@ -139,4 +139,3 @@ void deleteBitmap(Bitmap* bmp) {
     free(bmp->bitmapData);
     free(bmp);
 }
-

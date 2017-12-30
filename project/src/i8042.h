@@ -1,7 +1,6 @@
 #ifndef _I8042_H_
 #define _I8042_H_
 
-//#define BIT(n) 		(0x01<<n)
 #define BREAK_CODE_BIT 		BIT(7)
 
 #define ESC					0x81
@@ -10,10 +9,8 @@
 #define SNAKE_S				0x9f
 #define SNAKE_A				0x9e
 #define SNAKE_D				0xa0
-#define SNAKE_UP_KEY		0xe0c8
-#define SNAKE_DOWN_KEY		0xe0d0
-#define SNAKE_LEFT_KEY		0xe0cb
-#define SNAKE_RIGHT_KEY		0xe0cd
+#define SPACE 				0xb9
+#define ENTER				0x9c
 
 // KBC REGISTERS
 
@@ -27,6 +24,7 @@
 
 #define OUT_BUF_FULL 		BIT(0)
 #define IN_BUF_FULL 		BIT(1)
+#define AUX 				BIT(5)
 
 #define DELAY				20000
 
@@ -60,9 +58,9 @@ the KBC*/
 
 // Computer Labs: The PS/2 Mouse (slide 4)
 
-#define MOUSE_LB 				BIT(0)
-#define MOUSE_RB 				BIT(1)
-#define MOUSE_MB 				BIT(2)
+#define MOUSE_LB 			BIT(0)
+#define MOUSE_RB 			BIT(1)
+#define MOUSE_MB 			BIT(2)
 #define MOUSE_UNUSED 			BIT(3)
 #define MOUSE_X_SIGN 			BIT(4)
 #define MOUSE_Y_SIGN 			BIT(5)
@@ -70,4 +68,3 @@ the KBC*/
 #define MOUSE_Y_OVF 			BIT(7)
 
 #endif /* _I8042_H_ */
-

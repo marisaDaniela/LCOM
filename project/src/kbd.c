@@ -251,4 +251,3 @@ int kbd_test_timed_scan(unsigned short n) {
 	timer_unsubscribe_int();
 	return kbd_unsubscribe_int(); // unsubscribe
 }
-

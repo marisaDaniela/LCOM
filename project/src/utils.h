@@ -8,4 +8,3 @@
 
 int fileExists(const char* filename);
 const char* path(const char* name);
-

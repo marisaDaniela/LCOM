@@ -39,4 +39,3 @@ void initDoubleBuffer();
 
 
 #endif /* __GRAPHICS_H */
-

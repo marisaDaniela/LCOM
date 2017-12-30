@@ -5,6 +5,8 @@
 #include <sys/types.h>
 
 #include "vbe.h"
+#include "graphics.h"
+
 
 /* Constants for VBE 0x105 mode */
 
@@ -189,4 +191,3 @@ int vg_exit() {
 	} else
 		return 0;
 }
-

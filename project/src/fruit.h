@@ -7,10 +7,15 @@ typedef struct
 {
 	Point* fruitCoords;		
 	Point* fruitPosition;	
+	int value; 
+	int special; 
+	unsigned int timer;
+	unsigned int duration;  
 	
 } Fruit;
 
 Fruit* initFruit();
-void eatFruit();
-
+int eatFruit();
+void updatepositionF(Fruit* fruit);
+Fruit* specialFruit(); 
 

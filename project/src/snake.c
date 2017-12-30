@@ -1,12 +1,13 @@
 #include <minix/drivers.h>
 #include "snake.h"
 
-const int FPS = 25; //frames per second
+const int FPS = 60; //frames per second
 
 Snake* initSnake()
 {
 	Snake* snake = malloc(sizeof(Snake));
-
+	
+	snake->score = 0; 
 	snake->size = INIT_SIZE;
 	
 	snake->snakePosition = malloc(INIT_SIZE * sizeof(snake->snakePosition));
@@ -19,9 +20,10 @@ Snake* initSnake()
 	return snake;
 }
 
-void die(Snake* snake)
+int die(Snake* snake, Fruit* fruit)
 {
 	snake->size = INIT_SIZE;
+	int finalscore= snake->score; 
 	
 	snake->snakePosition = malloc(INIT_SIZE * sizeof(snake->snakePosition));
 	snake->snakePosition[0] = getPoint(0,0);
@@ -29,11 +31,18 @@ void die(Snake* snake)
 	snake->snakePosition[2] = getPoint(2,0);
 
 	snake->direction = RIGHT;
-	return;
+	
+	updatepositionF(fruit);
+	
+	snake->score = 0;
+	return finalscore;
 }
 
-void moveSnake(Snake* snake, Fruit* fruit)
+int moveSnake(Snake* snake, Fruit* fruit, Fruit* specialF)
 {
+	int value=0; 
+	int finalscore= snake->score; 
+	
 	// Calculate new head position
 	Point* headPosition = snake->snakePosition[snake->size - 1];
 
@@ -74,8 +83,8 @@ void moveSnake(Snake* snake, Fruit* fruit)
 	if(headPosition->x < 0 || headPosition->x >= 25 || headPosition->y < 0 || headPosition->y >= 25)
 	{
 		// Dead
-		die(snake);
-		return;
+		finalscore= die(snake, fruit);
+		return finalscore;
 	}
 	// Check if goes against herself
 	int b;
@@ -86,8 +95,8 @@ void moveSnake(Snake* snake, Fruit* fruit)
 		
 		if (comparePoints(headPosition, bodyPosition))
 		{
-			die(snake);	
-			return; 		
+			finalscore= die(snake, fruit);	
+			return finalscore; 		
 		}
 	}	
 
@@ -95,7 +104,31 @@ void moveSnake(Snake* snake, Fruit* fruit)
 	if(comparePoints(headPosition, fruit->fruitPosition))
 	{
 		// Food eaten
-		eatFruit(fruit);
+		value = eatFruit(fruit);
+		snake->score += value ; 
+		
+		// Save head
+		Point* head = getPoint(headPosition->x, headPosition->y);
+
+		// Size increases
+		snake->size += 1;
+		snake->snakePosition = malloc(snake->size * sizeof(snake->snakePosition));
+
+		// Regenerate body
+		unsigned int i;
+		for(i = 0; i < (snake->size - 1); i++)
+		{
+			snake->snakePosition[i] = oldBody[i];
+		}
+		snake->snakePosition[snake->size - 1] = head;
+	}
+	// Check if special food eaten
+	else if(comparePoints(headPosition, specialF->fruitPosition))
+	{
+		// Food eaten
+		value = eatFruit(specialF);
+		snake->score += value ; 
+		
 		// Save head
 		Point* head = getPoint(headPosition->x, headPosition->y);
 
@@ -113,10 +146,6 @@ void moveSnake(Snake* snake, Fruit* fruit)
 	}
 	else
 	{
-		// Food not eaten
-
-		printf("\nFood eaten\n");
-
 		// Regenerate body
 		unsigned int i;
 		for(i = 1; i < snake->size; i++)
@@ -128,7 +157,6 @@ void moveSnake(Snake* snake, Fruit* fruit)
 
 void printSnakePosition(Snake* snake)
 {
-	printf("PRINTING YOUR SNAKE:\n");
 
 	unsigned int i = 0;
 	for(i = 0; i < snake->size; i++)
@@ -136,7 +164,6 @@ void printSnakePosition(Snake* snake)
 		printf("X: %d AND Y: %d\n", snake->snakePosition[i]->x, snake->snakePosition[i]->y);
 	}
 
-	printf("FINISHED PRINTING YOUR SNAKE:\n");
 }
 
 void updateDirection(Snake* snake, unsigned short key)
@@ -168,4 +195,3 @@ void updateDirection(Snake* snake, unsigned short key)
 		break;
 	}
 }
-
