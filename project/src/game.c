@@ -24,13 +24,13 @@ int game()
 	initDoubleBuffer();
 
 	// Load Bitmaps
-	Bitmap* menu = loadBitmap(path("blueSquare"));
+	Bitmap* menu = loadBitmap(path("menu"));
 	Bitmap* board = loadBitmap(path("board"));
-	Bitmap* snakeHead = loadBitmap(path("snakeBody"));
+	Bitmap* snakeHead = loadBitmap(path("snakeHead"));
 	Bitmap* snakeBody = loadBitmap(path("snakeBody"));
-	Bitmap* food = loadBitmap(path("food"));
-	Bitmap* special = loadBitmap(path("blueSquareBackup")); 
-	Bitmap* cursor = loadBitmap(path("blueSquareBackup"));
+	Bitmap* food = loadBitmap(path("foodspecial"));
+	Bitmap* special = loadBitmap(path("foodspecial")); 
+	Bitmap* cursor = loadBitmap(path("cursor"));
 
 	// Load Entities
 	Snake* snake = initSnake();
@@ -46,7 +46,10 @@ int game()
 	int time_bound = 60 / difficulty;
 	int RUNNING = 1;
 	char gamest= 'M';
-
+	
+	//file logs
+	//FILE* log= fopen( "/home/lcom/project/logs/log.txt", "log" );
+	
 
 	while(RUNNING)
 	{
@@ -76,14 +79,14 @@ int game()
 						drawBitmap(cursor, getMouse()->x, getMouse()->y, ALIGN_LEFT);
 					
 							
-						if(mouseInside(getMouse(), 5 , 20, 15, 20) && getMouse()->leftButtonDown)						
+						if((mouseInside(getMouse(), 420, 590, 400, 440)==0) && getMouse()->leftButtonDown)						
 						{
 							gamest='G'; 
 						}
-						/*if(mouseInside(getMouse(), 5, 20, 5, 10) && getMouse()->leftButtonDown)
+						if((mouseInside(getMouse(), 440, 570, 480, 500)==0) && getMouse()->leftButtonDown)
 						{
 							RUNNING = 0;
-						}	*/
+						}	
 						// Buffer to Video Memory
 						bufferToVideoMem();				
 					break; 
@@ -127,10 +130,15 @@ int game()
 						{
 							timer -= time_bound;
 							finalscore = moveSnake(snake, fruit, specialF);
+							/*
+							if(finalscore!=0){
+								if(log!=NULL)
+									fprintf(log, "score: %d \n\n", finalscore );
+							} */
 						}
 
 						//Draw special Food
-						if(specialF->timer != 0)
+						/*if(specialF->timer != 0)
 						{
 							specialF->timer--;
 						}
@@ -145,7 +153,7 @@ int game()
 								drawBitmap(special, specialF->fruitCoords->x, specialF->fruitCoords->y, ALIGN_LEFT); 
 								specialF->duration--; 
 							}
-						}
+						}*/
 							
 						// Buffer to Video Memory
 						bufferToVideoMem();
@@ -187,6 +195,6 @@ int game()
 	timer_unsubscribe_int();
 	kbd_unsubscribe_int();
 	mouse_unsubscribe_int();
-
+	//fclose(log); 
 	vg_exit();
 }
