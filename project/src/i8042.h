@@ -10,7 +10,9 @@
 #define SNAKE_A				0x9e
 #define SNAKE_D				0xa0
 #define SPACE 				0xb9
-#define ENTER				0x9c
+#define ENTER			  	0x9c
+#define P				  	  0x99
+
 
 // KBC REGISTERS
 
