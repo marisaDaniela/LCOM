@@ -1,0 +1,11 @@
+digraph "initFruit"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node2 [label="initFruit",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="getPoint",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$point_8c.html#ae11ef60e15d1f8575481f5d2316cc86d",tooltip="Initializes a new point. "];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="pointToCoord",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$point_8c.html#a486f452e5d7065c708841f21f7651a54",tooltip="Converts a point to coordinates. "];
+}
