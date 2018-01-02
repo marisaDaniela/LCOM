@@ -1,7 +1,7 @@
 #ifndef _I8042_H_
 #define _I8042_H_
 
-#define BREAK_CODE_BIT 		      BIT(7)
+#define BREAK_CODE_BIT 		BIT(7)
 
 #define ESC					0x81
 
@@ -14,16 +14,16 @@
 
 // KBC REGISTERS
 
-#define STAT_REG 			      0x64
-#define CMD_REG 			      0x64
-#define KBC_CMD_REG 		      0x64
+#define STAT_REG 			0x64
+#define CMD_REG 			0x64
+#define KBC_CMD_REG 		0x64
 #define IN_BUF 				0x60
 #define OUT_BUF		 		0x60
 
 #define KBD_IRQ				0x01
 
-#define OUT_BUF_FULL 		      BIT(0)
-#define IN_BUF_FULL 		      BIT(1)
+#define OUT_BUF_FULL 		BIT(0)
+#define IN_BUF_FULL 		BIT(1)
 #define AUX 				BIT(5)
 
 #define DELAY				20000

@@ -11,10 +11,9 @@ typedef struct
 	Point* fruitCoords;		
 	Point* fruitPosition;	
 	int value; 
+	unsigned int duration; 
 	int special; 
-	unsigned int timer;
-	unsigned int duration;  
-	
+	unsigned int timer;	
 } Fruit;
 
 
@@ -31,7 +30,6 @@ int eatFruit();
 
 /**
  * @brief Function that updates the position of the fruit
-  *@param fruit pointer to fruit
  */
 void updatepositionF(Fruit* fruit);
 
@@ -40,3 +38,4 @@ void updatepositionF(Fruit* fruit);
  * @return pointer to the new fruit created
  */
 Fruit* specialFruit(); 
+

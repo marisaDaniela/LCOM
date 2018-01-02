@@ -32,7 +32,7 @@ int game()
 	Bitmap* board = loadBitmap(path("board"));
 	Bitmap* snakeHead = loadBitmap(path("snakeHead"));
 	Bitmap* snakeBody = loadBitmap(path("snakeBody"));
-	Bitmap* food = loadBitmap(path("foodspecial"));
+	Bitmap* food = loadBitmap(path("food"));
 	Bitmap* special = loadBitmap(path("foodspecial")); 
 	Bitmap* cursor = loadBitmap(path("cursor"));
 
@@ -125,30 +125,33 @@ int game()
 
 						drawBitmap(food, fruit->fruitCoords->x, fruit->fruitCoords->y, ALIGN_LEFT);
 						
+						if (specialF->duration > 0)
+							drawBitmap(special, specialF->fruitCoords->x, specialF->fruitCoords->y, ALIGN_LEFT);
+						
+						
 						// Move Snake
 						if(timer >= time_bound)
 						{
 							timer -= time_bound;
 							moveSnake(fp, snake, fruit, specialF);
-						}
-
-						//Draw special Food
-						/*if(specialF->timer != 0)
-						{
-							specialF->timer--;
-						}
-						else
-						{
-							if(specialF->duration == 0)
+						
+							//Draw special Food
+							if(specialF->timer == 0)
 							{
-								deleteBitmap(special);
+								if (specialF->duration > 0)
+								{
+									specialF->duration--;
+								}
+								else if (specialF->duration == 0)
+								{
+									updatepositionF(specialF); 
+								}
 							}
 							else
 							{
-								drawBitmap(special, specialF->fruitCoords->x, specialF->fruitCoords->y, ALIGN_LEFT); 
-								specialF->duration--; 
+								specialF->timer--; 
 							}
-						}*/
+						}
 							
 						// Buffer to Video Memory
 						bufferToVideoMem();

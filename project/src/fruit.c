@@ -15,20 +15,20 @@ Fruit* initFruit()
 }
 
 int eatFruit(Fruit* fruit)
-{  if(fruit->special==0)
+{
+	srand(time(NULL));
+	if(fruit->special==0)
 	{
-		srand(time(NULL));
-		fruit->timer=rand()%6; 
-		fruit->duration=5; 
+		fruit->timer=rand()%10; 
+		fruit->duration= 50; 
 		updatepositionF(fruit); 
     	return fruit->value;
 	}
 	else
 	{
-		srand(time(NULL));
 		updatepositionF(fruit); 
-    	return fruit->value;	
-    }
+    		return fruit->value;	
+   	}
 } 
 
 void updatepositionF(Fruit* fruit)
@@ -50,9 +50,9 @@ Fruit* specialFruit()
 	Fruit* fruit = malloc(sizeof(Fruit));
 	fruit->fruitPosition = getPoint(x, y);
 	fruit->fruitCoords = (Point*)pointToCoord(fruit->fruitPosition);
-	fruit->timer=rand()%5; 
+	fruit->timer=rand()%10;
+	fruit->duration = 50;  
 	fruit->value = 15; 
-	fruit->duration=5; 
 	fruit->special=0; 
 	
 	return fruit; 
