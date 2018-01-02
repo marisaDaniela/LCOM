@@ -4,7 +4,7 @@ int game()
 {
 	FILE *fp;
 
-	fp = fopen("/home/lcom/project/res/scores.txt", "w");
+	fp = fopen("/home/lcom/lcom1718-t1g04/project/res/scores.txt", "w");
 	
 	srand(time(NULL));
 	// Init Timer
