@@ -1,5 +1,5 @@
 #include "mouse.h"
-// subscribe mouse
+
 int g_hook3 =3;
 Mouse* mouse = NULL;
 Mouse mouse_PS;
@@ -118,7 +118,6 @@ Mouse* getMouse()
 {
 	if (!mouse)
 	{	
-		//enableMouse();
 		mouse = newMouse();
 	}
 	return mouse;
@@ -138,33 +137,27 @@ void updateMouse()
 	if(mouse->counter == 3)
 	{
 		mouse->counter = 0;
+		mouse->xD = mouse->packet[1];
+		mouse->yD = mouse->packet[2];
+		
+		mouse->ySign = mouse->packet[0] & MOUSE_Y_SIGN;
+		mouse->xSign = mouse->packet[0] & MOUSE_X_SIGN;
 
-		/* Buttons Current State */
 		mouse->leftButtonDown = mouse->packet[0] & MOUSE_LB;
 		mouse->rightButtonDown = mouse->packet[0] & MOUSE_RB;
 
-		/* X and Y signs */
-		mouse->xSign = mouse->packet[0] & MOUSE_X_SIGN;
-		mouse->ySign = mouse->packet[0] & MOUSE_Y_SIGN;
-		mouse->xD = mouse->packet[1];
-		mouse->yD = mouse->packet[2];
 
-		/* X and Y delta movements */
-		if(mouse->xSign)
-		{	
-			mouse->xD |= (-1 << 8);	
-		}
-
-		if(mouse->ySign)
-		{	
-			mouse->yD |= (-1 << 8);
-		}
-
-		/* Comparing buttons current state with the previous state */
 		if (mouse_PS.leftButtonDown != 0 && mouse->leftButtonDown == 0)
 			mouse->leftButtonReleased = 1;
 		if (mouse_PS.rightButtonDown != 0	&& mouse->rightButtonDown == 0)
 			mouse->rightButtonReleased = 1;
+
+		if(mouse->xSign)	
+			mouse->xD |= (-1 << 8);	
+
+		if(mouse->ySign)
+			mouse->yD |= (-1 << 8);
+
 
 		/* Updating the X coordinate */
 		if (mouse->xD != 0)
@@ -175,16 +168,14 @@ void updateMouse()
 				mouse->x = getHorResolution() - 1;
 		}
 
-		/* Updating the Y coordinate */
 		if (mouse->yD != 0)
 		{
-			if((mouse->y -= mouse->speed * mouse->yD) < 0)
+			if((mouse->y -=  mouse->yD * mouse->speed ) < 0)
 				mouse->y = 0;
 			else if (mouse->y >= getVerResolution())
 				mouse->y = getVerResolution() - 1;
 		}
 
-		/* Saves current state as previous state */
 		mouse->xD = mouse->x - mouse_PS.x;
 		mouse->yD = mouse->y - mouse_PS.y;
 		mouse_PS = *mouse;
