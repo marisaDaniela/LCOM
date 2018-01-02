@@ -2,6 +2,10 @@
 #include <minix/drivers.h>
 #include <minix/com.h>
 
+/** @defgroup game game
+ * @{
+ * Function that has the game
+ */
 #include "timer.h"
 #include "kbd.h"
 #include "mouse.h"
@@ -16,6 +20,10 @@
 
 #define mode 0x117
 
+/**
+ * @brief Initializes the game
+ * @return 0 if succeed
+ */
 int game();
 
 void printSnakePosition(Snake* snake);
