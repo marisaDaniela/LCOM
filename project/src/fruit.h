@@ -3,6 +3,9 @@
 #include "snake.h"
 #include <minix/syslib.h>
 
+/**
+ * @brief fruit info struct
+ */
 typedef struct
 {
 	Point* fruitCoords;		
@@ -14,8 +17,26 @@ typedef struct
 	
 } Fruit;
 
-Fruit* initFruit();
-int eatFruit();
-void updatepositionF(Fruit* fruit);
-Fruit* specialFruit(); 
 
+/**
+ * @brief Function to create a new fruit to place randomly on the screen
+ */
+Fruit* initFruit();
+
+/**
+ * @brief Function to snake eat fruit when reaches it
+ * @return fruit pontuation
+ */
+int eatFruit();
+
+/**
+ * @brief Function that updates the position of the fruit
+  *@param fruit pointer to fruit
+ */
+void updatepositionF(Fruit* fruit);
+
+/**
+ * @brief Initializes a new fruit
+ * @return pointer to the new fruit created
+ */
+Fruit* specialFruit(); 

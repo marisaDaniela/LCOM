@@ -33,8 +33,22 @@ int drawSquare(unsigned short x, unsigned short y, unsigned short size, unsigned
 
 void drawLine(unsigned xi, unsigned yi, unsigned xf, unsigned yf, char color);
 
+
+ /**
+ * @brief funtion to get vertical resolution
+ * @return V_RES;
+ */
 int getVerResolution();
+
+ /**
+ * @brief funtion to get horizontal resolution
+ * @return H_RES;
+ */
 int getHorResolution();
+
+ /**
+ * @brief funtion that initizalizes double buffer
+ */
 void initDoubleBuffer();
 
 
