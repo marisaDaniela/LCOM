@@ -2,6 +2,10 @@
 
 int game()
 {
+	FILE *fp;
+
+	fp = fopen("/home/lcom/project/res/scores.txt", "w");
+	
 	srand(time(NULL));
 	// Init Timer
 	int irq_timer = timer_subscribe_int();
@@ -38,17 +42,13 @@ int game()
 	Fruit* specialF = specialFruit(); 
 
 	// Game Loop
-	int finalscore=0; 
 	int ipc_status, r;
 	message msg;
-	int difficulty = 9;
+	int difficulty = 8;
 	int timer = 0;
 	int time_bound = 60 / difficulty;
 	int RUNNING = 1;
 	char gamest= 'M';
-	
-	//file logs
-	//FILE* log= fopen( "/home/lcom/project/logs/log.txt", "log" );
 	
 
 	while(RUNNING)
@@ -129,12 +129,7 @@ int game()
 						if(timer >= time_bound)
 						{
 							timer -= time_bound;
-							finalscore = moveSnake(snake, fruit, specialF);
-							/*
-							if(finalscore!=0){
-								if(log!=NULL)
-									fprintf(log, "score: %d \n\n", finalscore );
-							} */
+							moveSnake(fp, snake, fruit, specialF);
 						}
 
 						//Draw special Food
@@ -195,6 +190,7 @@ int game()
 	timer_unsubscribe_int();
 	kbd_unsubscribe_int();
 	mouse_unsubscribe_int();
-	//fclose(log); 
+	fclose(fp);
+	
 	vg_exit();
 }

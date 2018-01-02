@@ -8,14 +8,14 @@ Fruit* initFruit()
 	Fruit* fruit = malloc(sizeof(Fruit));
 	fruit->fruitPosition = getPoint(x, y);
 	fruit->fruitCoords = (Point*)pointToCoord(fruit->fruitPosition);
-	fruit->timer=0; 
+	fruit->timer = 0; 
 	fruit->value = 5; 
 	fruit->special=1; 
 	return fruit; 
 }
 
 int eatFruit(Fruit* fruit)
-{  if(fruit->special)
+{  if(fruit->special==0)
 	{
 		srand(time(NULL));
 		fruit->timer=rand()%6; 

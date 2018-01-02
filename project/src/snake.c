@@ -20,10 +20,10 @@ Snake* initSnake()
 	return snake;
 }
 
-int die(Snake* snake, Fruit* fruit)
+void die(FILE* fp, Snake* snake, Fruit* fruit)
 {
 	snake->size = INIT_SIZE;
-	int finalscore= snake->score; 
+	writeScore(fp, snake->score); 
 	
 	snake->snakePosition = malloc(INIT_SIZE * sizeof(snake->snakePosition));
 	snake->snakePosition[0] = getPoint(0,0);
@@ -31,17 +31,16 @@ int die(Snake* snake, Fruit* fruit)
 	snake->snakePosition[2] = getPoint(2,0);
 
 	snake->direction = RIGHT;
+	snake->score = 0;
 	
 	updatepositionF(fruit);
 	
-	snake->score = 0;
-	return finalscore;
+	return;
 }
 
-int moveSnake(Snake* snake, Fruit* fruit, Fruit* specialF)
+void moveSnake(FILE* fp, Snake* snake, Fruit* fruit, Fruit* specialF)
 {
 	int value=0; 
-	int finalscore= snake->score; 
 	
 	// Calculate new head position
 	Point* headPosition = snake->snakePosition[snake->size - 1];
@@ -83,8 +82,8 @@ int moveSnake(Snake* snake, Fruit* fruit, Fruit* specialF)
 	if(headPosition->x < 0 || headPosition->x >= 25 || headPosition->y < 0 || headPosition->y >= 25)
 	{
 		// Dead
-		finalscore= die(snake, fruit);
-		return finalscore;
+		die(fp, snake, fruit);
+		return;
 	}
 	// Check if goes against herself
 	int b;
@@ -95,8 +94,8 @@ int moveSnake(Snake* snake, Fruit* fruit, Fruit* specialF)
 		
 		if (comparePoints(headPosition, bodyPosition))
 		{
-			finalscore= die(snake, fruit);	
-			return finalscore; 		
+			 die(fp, snake, fruit);	
+			return ; 		
 		}
 	}	
 

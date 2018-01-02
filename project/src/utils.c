@@ -24,3 +24,9 @@ const char* path(const char* name)
     // Returns the pathname
     return pathname;
 }
+
+void writeScore(FILE* fp, int score)
+{
+	fprintf(fp, " score: %d \n", score);
+		
+}
