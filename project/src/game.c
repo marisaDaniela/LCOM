@@ -29,6 +29,7 @@ int game()
 
 	// Load Bitmaps
 	Bitmap* menu = loadBitmap(path("menu"));
+	Bitmap* exit = loadBitmap(path("exit"));	
 	Bitmap* board = loadBitmap(path("board"));
 	Bitmap* snakeHead = loadBitmap(path("snakeHead"));
 	Bitmap* snakeBody = loadBitmap(path("snakeBody"));
@@ -68,6 +69,25 @@ int game()
 				{
 					switch (gamest)
 					{
+					case 'E': 
+					
+						//clear buffer
+						clearBuffer();
+						
+						//draw menu exit
+						drawBitmap(exit, BOARD_X, BOARD_Y, ALIGN_LEFT);
+						
+						//draw mouse
+						drawBitmap(cursor, getMouse()->x, getMouse()->y, ALIGN_LEFT);
+						
+						//check if exit
+						if((mouseInside(getMouse(), 440, 570, 480, 500)==0) && getMouse()->leftButtonDown)
+						{
+							RUNNING = 0;
+						}	
+						bufferToVideoMem();				
+						
+					
 					case 'M': 
 						// Clear the buffer
 						clearBuffer();
@@ -162,10 +182,19 @@ int game()
 				if (msg.NOTIFY_ARG & irq_kbd)
 				{				
 					unsigned short key = kbd_handler_c();
-					
-					if (key == SPACE)
+					if(gamest == 'M')
 					{
-						gamest= 'G'; 
+						if (key == SPACE)
+						{
+							gamest= 'G'; 
+						}
+					}
+					if (gamest == 'G')
+					{
+						if (key == P)
+						{
+							gamest='E'; 
+						}
 					}
 					
 					if (key == SNAKE_W || key == SNAKE_S ||	key == SNAKE_D || key == SNAKE_A)	
